@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TodayExchangeRate.com — Live Exchange Rates & Travel Hub</title>
+<meta name="description" content="Live mid-market rates, global travel insights, and money transfer comparisons by Jose J Mils.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="#home" class="logo nav-link">TodayExchangeRate<span class="dot">.com</span></a>
+    <nav class="nav">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#vacation-expo" class="nav-link">Vacation Expo</a>
+      <a href="#insights" class="nav-link">Insights & News</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- HOME PAGE -->
+  <div id="page-home" class="page-section active-page">
+    <!-- HERO: RATE BOARD -->
+    <section class="board-hero">
+      <div class="wrap">
+        <p class="eyebrow">Interbank mid-market rates · updated every 15 minutes · last checked <span id="last-updated">—</span></p>
+        <h1>Live exchange rates for 160+ currencies,<br>trusted to the minute.</h1>
+        <p class="hero-sub">One rate. No markup, no guesswork. The benchmark used by global financial institutions — free to check anytime.</p>
+
+        <div class="board" id="rate-board" aria-live="polite"></div>
+        <p class="board-note">Mid-market reference rate — the real rate before providers add margins.</p>
+      </div>
+    </section>
+
+    <!-- CONVERTER -->
+    <section class="converter" id="converter">
+      <div class="wrap">
+        <h2>Currency converter</h2>
+        <div class="converter-box">
+          <div class="field">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" value="1000" min="0" inputmode="decimal">
+          </div>
+          <div class="field">
+            <label for="from">From</label>
+            <select id="from"></select>
+          </div>
+          <button class="swap" id="swap-note" title="Swap currencies">⇄</button>
+          <div class="field">
+            <label for="to">To</label>
+            <select id="to"></select>
+          </div>
+        </div>
+        <div class="result" id="result">Loading today's rate…</div>
+        <button class="watchlist-btn" id="watchlist-toggle">☆ Add to watchlist</button>
+      </div>
+    </section>
+
+    <!-- HISTORICAL CHART -->
+    <section class="chart-section">
+      <div class="wrap">
+        <div class="chart-head">
+          <h2>Rate history</h2>
+          <div class="range-toggle" id="range-toggle">
+            <button data-range="7" class="active">7D</button>
+            <button data-range="30">1M</button>
+            <button data-range="90">3M</button>
+            <button data-range="365">1Y</button>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <canvas id="rate-chart" height="90"></canvas>
+        </div>
+        <p class="chart-note">Historical trend for the selected pair. <button id="export-csv" class="link-btn">Export CSV</button></p>
+      </div>
+    </section>
+
+    <!-- WATCHLIST -->
+    <section class="watchlist-section" id="watchlist" hidden>
+      <div class="wrap">
+        <h2>Your watchlist</h2>
+        <div class="board" id="watchlist-board"></div>
+      </div>
+    </section>
+
+    <!-- FULL RATE TABLE -->
+    <section class="rate-table-section">
+      <div class="wrap">
+        <div class="chart-head">
+          <h2>All exchange rates</h2>
+          <div class="field table-base-field">
+            <label for="table-base">Base currency</label>
+            <select id="table-base"></select>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="rate-full-table">
+            <thead>
+              <tr><th>Currency</th><th>Code</th><th>Rate</th><th></th></tr>
+            </thead>
+            <tbody id="full-rate-rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- VACATION EXPO PAGE -->
+  <div id="page-vacation-expo" class="page-section">
+    <section class="expo-hero">
+      <div class="wrap">
+        <p class="eyebrow">World Travel Showcase</p>
+        <h1>Vacation Expo</h1>
+        <p class="hero-sub">Explore destination guides and featured videos from global travel creators.</p>
+
+        <div class="video-grid">
+          <div class="video-card">
+            <div class="iframe-container">
+              <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Travel Vlog 1" allowfullscreen></iframe>
+            </div>
+            <h3>Exploring Top European Destinations</h3>
+            <p>Budget strategies and exchange rate tips when traveling across the Eurozone.</p>
+          </div>
+          <div class="video-card">
+            <div class="iframe-container">
+              <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Travel Vlog 2" allowfullscreen></iframe>
+            </div>
+            <h3>Island Hopping & FX Management</h3>
+            <p>How to handle card payments and cash exchanges on tropical vacations.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- INSIGHTS & NEWS PAGE -->
+  <div id="page-insights" class="page-section">
+    <section class="insights-hero">
+      <div class="wrap">
+        <p class="eyebrow">Financial Trends & Travel Economics</p>
+        <h1>Insights & News</h1>
+        <p class="hero-sub">Latest updates on foreign exchange trends, global travel economics, and market shifts.</p>
+
+        <div class="news-list" id="news-container">
+          <article class="news-card">
+            <span class="news-tag">Market Brief</span>
+            <h3>Central Bank Rate Decisions Impact Cross-Border Transfers</h3>
+            <p>Recent adjustments to monetary policy are creating new rate movements across major currencies. Transfers between the US Dollar and European currencies have seen heightened volatility standardizing across commercial corridors.</p>
+            <span class="news-date">Updated Today</span>
+          </article>
+          <article class="news-card">
+            <span class="news-tag">Travel Economics</span>
+            <h3>Global Tourist Corridors Adapt to Digital Payments</h3>
+            <p>Popular international travel destinations continue shifting toward contactless and multi-currency digital wallet platforms, helping travelers avoid high currency exchange counter fees.</p>
+            <span class="news-date">Updated Today</span>
+          </article>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ABOUT PAGE -->
+  <div id="page-about" class="page-section">
+    <section class="about-hero">
+      <div class="wrap">
+        <p class="eyebrow">Our Mission</p>
+        <h1>About TodayExchangeRate</h1>
+        <div class="about-card">
+          <p>Founded by <strong>Jose J Mils</strong>, TodayExchangeRate.com was created to bring transparency to global currency conversion and travel financial planning.</p>
+          <p>Whether you're sending money to family, planning an international vacation, or tracking currency volatility, our tools pull real-time mid-market benchmark data to give you the clearest picture without hidden fees or markups.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- CONTACT PAGE -->
+  <div id="page-contact" class="page-section">
+    <section class="contact-hero">
+      <div class="wrap">
+        <p class="eyebrow">Get in Touch</p>
+        <h1>Contact Us</h1>
+        <div class="contact-card">
+          <p><strong>Founder:</strong> Jose J Mils</p>
+          <p><strong>Location:</strong> USA</p>
+          <p><strong>Email:</strong> contact@todayexchangerate.com</p>
+
+          <form class="contact-form" id="contact-form">
+            <div class="field">
+              <label for="contact-name">Your Name</label>
+              <input type="text" id="contact-name" required placeholder="Full Name">
+            </div>
+            <div class="field">
+              <label for="contact-email">Your Email</label>
+              <input type="email" id="contact-email" required placeholder="you@example.com">
+            </div>
+            <div class="field">
+              <label for="contact-message">Message</label>
+              <textarea id="contact-message" rows="5" required placeholder="How can we help?"></textarea>
+            </div>
+            <button type="submit" class="cta-btn">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>
+      <strong>TodayExchangeRate.com</strong> · Managed by Jose J Mils, USA.<br>
+      Mid-market benchmark exchange rates for informational and comparison purposes only.
+    </p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
